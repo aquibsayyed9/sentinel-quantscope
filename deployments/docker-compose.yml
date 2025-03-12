@@ -1,0 +1,53 @@
+# deployments/docker-compose.yml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sentinel
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # api:
+  #   build:
+  #     context: ..
+  #     dockerfile: deployments/docker/Dockerfile.api
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     SENTINEL_ENVIRONMENT: development
+  #     SENTINEL_DATABASE_HOST: postgres
+  #   depends_on:
+  #     - postgres
+  #   restart: unless-stopped
+
+  # marketdata:
+  #   build:
+  #     context: ..
+  #     dockerfile: deployments/docker/Dockerfile.marketdata
+  #   ports:
+  #     - "8081:8081"
+  #   environment:
+  #     SENTINEL_ENVIRONMENT: development
+  #   restart: unless-stopped
+  
+  # ruleengine:
+  #   build:
+  #     context: ..
+  #     dockerfile: deployments/docker/Dockerfile.ruleengine
+  #   environment:
+  #     SENTINEL_ENVIRONMENT: development
+  #     SENTINEL_DATABASE_HOST: postgres
+  #   depends_on:
+  #     - postgres
+  #     - marketdata
+  #   restart: unless-stopped
+
+volumes:
+  postgres_data:

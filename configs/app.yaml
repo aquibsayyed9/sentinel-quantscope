@@ -1,0 +1,31 @@
+# configs/app.yaml
+environment: development
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  base_path: /api/v1
+
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
+  name: sentinel
+  sslmode: disable
+
+jwt:
+  secret: your-secret-key-here
+  expire_hour: 24
+
+market_data:
+  provider: alpaca
+  api_key: your-api-key-here
+  api_secret: your-api-secret-here
+  ws_port: 8081
+
+broker:
+  provider: alpaca
+  api_key: your-api-key-here
+  api_secret: your-api-secret-here
+  is_paper: true
